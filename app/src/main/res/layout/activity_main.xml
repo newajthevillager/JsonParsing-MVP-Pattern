@@ -14,7 +14,6 @@
     </android.support.v7.widget.RecyclerView>
 
     <Button
-        android:onClick="tryAgainBtnClick"
         android:id="@+id/btnTryAgain"
         android:visibility="gone"
         android:layout_width="150dp"

@@ -11,36 +11,38 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import example.com.jsonparsing.R;
 import example.com.jsonparsing.model.User;
 
 // no mvp in this activity
 public class DetailsActivity extends AppCompatActivity {
 
+    @BindView(R.id.ivDetailsImage)
     ImageView imageView;
-    TextView nameTv, genderTv, ageTv, emailTv;
+    @BindView(R.id.tvdetaisName)
+    TextView nameTv;
+    @BindView(R.id.tvdetaisGender)
+    TextView genderTv;
+    @BindView(R.id.tvdetaisAge)
+    TextView ageTv;
+    @BindView(R.id.tvdetaisEmail)
+    TextView emailTv;
     User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         Intent gIntent = getIntent();
         user = (User) gIntent.getSerializableExtra("user");
 
-        initUI();
         displayDetails();
-    }
-
-    private void initUI() {
-        imageView = findViewById(R.id.ivDetailsImage);
-        nameTv = findViewById(R.id.tvdetaisName);
-        genderTv = findViewById(R.id.tvdetaisGender);
-        ageTv = findViewById(R.id.tvdetaisAge);
-        emailTv = findViewById(R.id.tvdetaisEmail);
     }
 
     public void displayDetails() {

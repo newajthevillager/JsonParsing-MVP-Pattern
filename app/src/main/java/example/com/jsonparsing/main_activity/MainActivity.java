@@ -13,6 +13,9 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import example.com.jsonparsing.R;
 import example.com.jsonparsing.adapter.UserListAdapter;
 import example.com.jsonparsing.details_activity.DetailsActivity;
@@ -21,9 +24,13 @@ import example.com.jsonparsing.util.MyAppUtil;
 
 public class MainActivity extends AppCompatActivity implements MainActivityContract.IView, MainActivityContract.IView.ItemClickListener {
 
+    @BindView(R.id.rvUsers)
     RecyclerView recyclerView;
+    @BindView(R.id.btnTryAgain)
     Button tryAgainBtn;
+    @BindView((R.id.pbUsers))
     ProgressBar progressBar;
+
     MyAppUtil myAppUtil;
     MainActivityContract.IPresenter presenter;
     UserListAdapter userListAdapter;
@@ -32,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
         initUI();
         myAppUtil = new MyAppUtil(this);
@@ -40,12 +48,9 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
     }
 
     public void initUI() {
-        recyclerView = (RecyclerView) findViewById(R.id.rvUsers);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        tryAgainBtn = findViewById(R.id.btnTryAgain);
-        progressBar = findViewById(R.id.pbUsers);
     }
 
     @Override
@@ -78,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
 
     @Override
     public void showUsers(List<User> users) {
-        Toast.makeText(this, "USers showing", Toast.LENGTH_SHORT).show();
         userListAdapter = new UserListAdapter(users, this);
         recyclerView.setAdapter(userListAdapter);
         for (User user : users) {
@@ -98,6 +102,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityContr
         presenter.onDestroy();
     }
 
+    @OnClick(R.id.btnTryAgain)
     public void tryAgainBtnClick(View view) {
         presenter.onNetworkCheck();
     }

@@ -12,6 +12,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import example.com.jsonparsing.R;
 import example.com.jsonparsing.main_activity.MainActivityContract;
 import example.com.jsonparsing.model.User;
@@ -59,16 +61,17 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.ViewHo
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
+        @BindView(R.id.ivUserThumbnail)
         ImageView thumbnailIv;
+        @BindView(R.id.tvUsername)
         TextView nameTv;
+        @BindView(R.id.tvUserEmail)
         TextView emailTv;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            thumbnailIv = itemView.findViewById(R.id.ivUserThumbnail);
-            nameTv = itemView.findViewById(R.id.tvUsername);
-            emailTv = itemView.findViewById(R.id.tvUserEmail);
+            ButterKnife.bind(this, itemView);
         }
     }
 
